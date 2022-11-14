@@ -19,6 +19,11 @@ public class RentACatImpl implements RentACat {
 
 	public boolean returnCat(int id) {
 		// TODO
+		if (cats.size() >= id && cats.get(id - 1).getRented()) {
+			cats.get(id - 1).returnCat();
+			return true;
+		}
+
 		return false;
 	}
 
@@ -34,7 +39,12 @@ public class RentACatImpl implements RentACat {
 
 	public boolean rentCat(int id) {
 		// TODO
-		return false;
+		if (catExists(id) && catAvailable(id)) {
+			cats.get(id - 1).rentCat();
+			return true;
+		}
+
+		 else return false;
 	}
 
 	/**
@@ -49,7 +59,17 @@ public class RentACatImpl implements RentACat {
 
 	public String listCats() {
 		// TODO
-		return "WRITE CODE FOR THIS";
+		if (cats.size() == 0) {
+			return "";
+		}
+		else {
+			String str = "";
+			for (Cat c : cats) {
+				str += c.toString() + "\n";
+			}
+			return str;
+		}
+
 	}
 
 	/**
@@ -63,7 +83,11 @@ public class RentACatImpl implements RentACat {
 
 	public boolean catExists(int id) {
 		// TODO
-		return false;
+		if (cats.size() < id) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -242,3 +266,8 @@ public class RentACatImpl implements RentACat {
 		sc.close();
 	}
 }
+
+
+// mvn compile
+// mvn exec:java
+// mvn test
